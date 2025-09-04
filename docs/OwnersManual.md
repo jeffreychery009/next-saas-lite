@@ -1,0 +1,1 @@
+Owner's manual in what will be delivered to the client
