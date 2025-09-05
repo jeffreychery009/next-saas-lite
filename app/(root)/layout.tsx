@@ -5,13 +5,13 @@ import React from 'react';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="w-full">
+    <div className="w-full bg-sidebar">
       <SidebarProvider>
         <div className="mt-4"></div>
         <main className="flex w-full flex-row">
           <AppSidebar />
 
-          <div className="m-2 flex-1 w-full min-w-0 border-2 border-sidebar-border bg-sidebar rounded-lg">
+          <div className="m-2 flex-1 w-full min-w-0 border-2 border-sidebar-borderbg-white dark:bg-[#0A0A0A] rounded-lg">
             {children}
           </div>
         </main>
