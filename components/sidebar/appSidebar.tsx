@@ -52,7 +52,11 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar variant="floating" collapsible="icon">
+    <Sidebar
+      variant="sidebar"
+      collapsible="icon"
+      className="group-data-[side=left]:border-none group-data-[side=right]:border-none"
+    >
       <SidebarHeader>
         <VersionSwitcher
           versions={['Production', 'Staging', 'Development']}
