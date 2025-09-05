@@ -11,7 +11,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <main className="flex w-full flex-row">
           <AppSidebar />
 
-          <div className="m-2 flex-1 w-full min-w-0 border-2 border-sidebar-borderbg-white dark:bg-[#0A0A0A] rounded-lg">
+          <div className="sm:my-4 sm:mr-4 flex-1 w-full min-w-0 sm:border-2 sm:border-sidebar-border bg-white dark:bg-[#0A0A0A] rounded-lg">
             {children}
           </div>
         </main>
