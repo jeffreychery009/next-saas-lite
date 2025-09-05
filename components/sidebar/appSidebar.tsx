@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/sidebar';
 import { VersionSwitcher } from './projectSwitcher';
 import { NavUser } from './navUser';
+import NavSecondary from './navSecondary';
 
 // Menu items.
 const items = [
@@ -53,9 +54,9 @@ export function AppSidebar() {
 
   return (
     <Sidebar
-      variant="sidebar"
       collapsible="icon"
-      className="group-data-[side=left]:border-none group-data-[side=right]:border-none"
+      variant="sidebar"
+      className="group-data-[side=left]:border-none group-data-[side=right]:border-none [&_[data-slot=sidebar-inner]]:py-4"
     >
       <SidebarHeader>
         <VersionSwitcher
@@ -81,6 +82,7 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <NavSecondary className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />
