@@ -39,7 +39,7 @@ export function Search() {
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') setOpen(true);
         }}
-        className="flex w-full max-w-md cursor-pointer items-center justify-between rounded-xl border bg-muted/50 px-4 py-2 text-sm text-muted-foreground hover:bg-muted"
+        className="flex  md:w-[200px] lg:w-[500px]  max-w-md cursor-pointer items-center justify-between rounded-sm border bg-muted/50 px-4 py-2 text-sm text-muted-foreground hover:bg-muted"
       >
         <span className="truncate">Search dashboard...</span>
         <kbd className="pointer-events-none inline-flex h-6 items-center gap-1 rounded border bg-white dark:bg-[#0A0A0A] px-2 font-mono text-[10px] font-medium text-muted-foreground">
