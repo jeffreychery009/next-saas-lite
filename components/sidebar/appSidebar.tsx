@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
 
 import {
   Sidebar,
@@ -11,50 +11,53 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { VersionSwitcher } from "./projectSwitcher"
-import { NavUser } from "./navUser"
+} from '@/components/ui/sidebar';
+import { VersionSwitcher } from './projectSwitcher';
+import { NavUser } from './navUser';
 
 // Menu items.
 const items = [
   {
-    title: "Home",
-    url: "#",
+    title: 'Home',
+    url: '#',
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
+    title: 'Inbox',
+    url: '#',
     icon: Inbox,
   },
   {
-    title: "Calendar",
-    url: "#",
+    title: 'Calendar',
+    url: '#',
     icon: Calendar,
   },
   {
-    title: "Search",
-    url: "#",
+    title: 'Search',
+    url: '#',
     icon: Search,
   },
   {
-    title: "Settings",
-    url: "#",
+    title: 'Settings',
+    url: '#',
     icon: Settings,
   },
-]
+];
 
 export function AppSidebar() {
   const user = {
-    name: "Jeffrey Chery",
-    email: "jeffrey.chery@example.com",
-    avatar: "placeholder.svg",
-  }
+    name: 'Jeffrey Chery',
+    email: 'jeffrey.chery@example.com',
+    avatar: 'placeholder.svg',
+  };
 
   return (
     <Sidebar variant="floating" collapsible="icon">
       <SidebarHeader>
-        <VersionSwitcher versions={["Production", "Staging", "Development"]} defaultVersion="Production" />
+        <VersionSwitcher
+          versions={['Production', 'Staging', 'Development']}
+          defaultVersion="Production"
+        />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -74,13 +77,10 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        
-          
-        
       </SidebarContent>
-      <SidebarFooter> 
-            <NavUser user={user} />
-          </SidebarFooter>
+      <SidebarFooter>
+        <NavUser user={user} />
+      </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
