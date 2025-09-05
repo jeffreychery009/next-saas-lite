@@ -13,7 +13,9 @@ const Header = () => {
           <div className="border-l border-sidebar-border h-4"></div>
           <h4 className=" font-medium">Dashboard</h4>
         </div>
-        <Search />
+        <div className="hidden md:block">
+          <Search />
+        </div>
         <div className="flex items-center gap-2">
           <ModeToggle />
           <Settings />
