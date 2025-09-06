@@ -13,10 +13,11 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from '@/components/ui/command';
+import { usePathname } from 'next/navigation';
 
 export function Search() {
   const [open, setOpen] = React.useState(false);
-
+  const pathname = usePathname();
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'j' && (e.metaKey || e.ctrlKey)) {
@@ -41,7 +42,17 @@ export function Search() {
         }}
         className="flex  md:w-[200px] lg:w-[500px]  max-w-md cursor-pointer items-center justify-between rounded-sm border bg-muted/50 px-4 py-2 text-sm text-muted-foreground hover:bg-muted"
       >
-        <span className="truncate">Search dashboard...</span>
+        <span className="truncate">
+          Search{' '}
+          {pathname
+            .split('/')
+            .slice(1)
+            .join(' ')
+            .charAt(0)
+            .toUpperCase()
+            .concat(pathname.split('/').slice(1).join(' ').slice(1))}
+          ...
+        </span>
         <kbd className="pointer-events-none inline-flex h-6 items-center gap-1 rounded border bg-white dark:bg-[#0A0A0A] px-2 font-mono text-[10px] font-medium text-muted-foreground">
           <span className="text-xs">⌘</span>J
         </kbd>
