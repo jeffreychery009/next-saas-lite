@@ -19,8 +19,8 @@ import NavSecondary from './navSecondary';
 // Menu items.
 const items = [
   {
-    title: 'Home',
-    url: '#',
+    title: 'Dashboard',
+    url: '/dashboard',
     icon: Home,
   },
   {
@@ -40,7 +40,7 @@ const items = [
   },
   {
     title: 'Settings',
-    url: '#',
+    url: '/settings',
     icon: Settings,
   },
 ];
