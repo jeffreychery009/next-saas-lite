@@ -91,3 +91,50 @@ export const chartData = [
   { date: '2024-06-29', desktop: 103, mobile: 160 },
   { date: '2024-06-30', desktop: 446, mobile: 400 },
 ];
+
+type Payment = {
+  id: string;
+  amount: number;
+  limit: number;
+  status: 'pending' | 'processing' | 'success' | 'failed';
+  email: string;
+};
+
+export const paymentsData: Payment[] = [
+  {
+    id: '728ed52f',
+    amount: 100,
+    status: 'pending',
+    limit: 100,
+    email: 'm@example.com',
+  },
+  {
+    id: '489e1d42',
+    amount: 125,
+
+    status: 'processing',
+    limit: 100,
+    email: 'example@gmail.com',
+  },
+  {
+    id: '489e1d42',
+    amount: 125,
+    status: 'processing',
+    limit: 100,
+    email: 'example@gmail.com',
+  },
+  {
+    id: '489e1d42',
+    amount: 125,
+    status: 'processing',
+    limit: 100,
+    email: 'example@gmail.com',
+  },
+  {
+    id: '489e1d42',
+    amount: 125,
+    status: 'processing',
+    limit: 100,
+    email: 'example@gmail.com',
+  },
+];
