@@ -3,6 +3,7 @@ import Header from '@/components/header/header';
 import TeamName from '@/components/settings/team-name';
 import AvatarCard from '@/components/settings/avatar-card';
 import CredentialsCard from '@/components/settings/credentials';
+import Deletion from '@/components/settings/deletion';
 
 const Page = () => {
   return (
@@ -14,6 +15,7 @@ const Page = () => {
         <TeamName />
         <AvatarCard />
         <CredentialsCard />
+        <Deletion />
       </div>
     </div>
   );
