@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import {
@@ -52,7 +54,7 @@ const LineChartComponent = () => {
   });
 
   return (
-    <Card>
+    <Card className="bg-gradient-to-t from-primary/5 to-card dark:bg-card shadow-xs">
       <CardHeader>
         <CardTitle>Revenue</CardTitle>
         <CardDescription className="text-sm text-muted-foreground">
