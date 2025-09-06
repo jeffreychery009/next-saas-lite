@@ -18,8 +18,8 @@ export default function CredentialsCard() {
 
       {/* Content */}
       <div className="p-6 pt-4 ">
-        <div className="flex md:flex-row flex-col justify-between">
-          <div className="flex flex-col gap-2">
+        <div className="flex lg:flex-row flex-col justify-between">
+          <div className="flex flex-col gap-2 md:mb-4">
             <Label htmlFor="changePassword" className="text-sm">
               Change Password
             </Label>
