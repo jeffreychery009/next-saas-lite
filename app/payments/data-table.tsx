@@ -25,7 +25,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { PlusIcon, GripVertical } from 'lucide-react';
+import { PlusIcon } from 'lucide-react';
 import {
   closestCenter,
   DndContext,
@@ -129,12 +129,15 @@ export function DataTable<TData extends { id: string }, TValue>({
   return (
     <div>
       <div className="flex justify-between items-center py-4 ">
-        <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
-          className="max-w-sm w-48 md:w-full"
-        />
+        <div className="flex flex-col gap-2">
+          <span className="text-sm font-medium">Filter by Email</span>
+          <Input
+            placeholder="Filter emails..."
+            value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
+            onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
+            className="max-w-sm w-48 md:w-64"
+          />
+        </div>
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -200,7 +203,7 @@ export function DataTable<TData extends { id: string }, TValue>({
             0 - {table.getRowModel().rows.length} of {table.getRowCount()} rows
           </span>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="sm"
