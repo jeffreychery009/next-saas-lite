@@ -1,6 +1,5 @@
 import { AppSidebar } from '@/components/sidebar/appSidebar';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import Header from '@/components/header/header';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import React from 'react';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

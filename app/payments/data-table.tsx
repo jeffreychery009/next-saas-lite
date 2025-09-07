@@ -57,7 +57,7 @@ interface DataTableProps<TData extends { id: string }, TValue> {
   data: TData[];
 }
 
-function DraggableRow({ row }: { row: Row<any> }) {
+function DraggableRow({ row }: { row: Row<{ id: string }> }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: row.original.id,
   });

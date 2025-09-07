@@ -1,6 +1,6 @@
-import { createServerClient } from "@supabase/ssr";
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { createServerClient } from '@supabase/ssr';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export async function middleware(req: NextRequest) {
   let res = NextResponse.next({
@@ -18,18 +18,14 @@ export async function middleware(req: NextRequest) {
           return req.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            req.cookies.set(name, value)
-          );
+          cookiesToSet.forEach(({ name, value }) => req.cookies.set(name, value));
           res = NextResponse.next({
             request: req,
           });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            res.cookies.set(name, value, options)
-          );
+          cookiesToSet.forEach(({ name, value, options }) => res.cookies.set(name, value, options));
         },
       },
-    }
+    },
   );
 
   try {
@@ -37,39 +33,39 @@ export async function middleware(req: NextRequest) {
       data: { user },
     } = await supabase.auth.getUser();
 
-    const protectedPaths = ["/dashboard"];
+    const protectedPaths = ['/dashboard'];
     const currentPath = req.nextUrl.pathname;
 
     // Check if current path starts with any protected path
     const isProtectedRoute = protectedPaths.some(
-      (path) => currentPath === path || currentPath.startsWith(`${path}/`)
+      (path) => currentPath === path || currentPath.startsWith(`${path}/`),
     );
 
     if (isProtectedRoute && !user) {
       // Optionally preserve the intended destination
-      const redirectUrl = new URL("/login", req.url);
-      redirectUrl.searchParams.set("redirectTo", req.nextUrl.pathname);
+      const redirectUrl = new URL('/login', req.url);
+      redirectUrl.searchParams.set('redirectTo', req.nextUrl.pathname);
       return NextResponse.redirect(redirectUrl);
     }
 
     // Optional: Redirect authenticated users away from login page
-    if (currentPath === "/login" && user) {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+    if (currentPath === '/login' && user) {
+      return NextResponse.redirect(new URL('/dashboard', req.url));
     }
 
     return res;
   } catch (error) {
-    console.error("Middleware auth error:", error);
+    console.error('Middleware auth error:', error);
     // On auth error, redirect to login for protected routes
-    const protectedPaths = ["/dashboard"];
+    const protectedPaths = ['/dashboard'];
     const currentPath = req.nextUrl.pathname;
 
     const isProtectedRoute = protectedPaths.some(
-      (path) => currentPath === path || currentPath.startsWith(`${path}/`)
+      (path) => currentPath === path || currentPath.startsWith(`${path}/`),
     );
 
     if (isProtectedRoute) {
-      return NextResponse.redirect(new URL("/login", req.url));
+      return NextResponse.redirect(new URL('/login', req.url));
     }
 
     return res;
@@ -78,8 +74,8 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/dashboard/:path*",
-    
-    "/login", // Optional: include login to handle authenticated user redirects
+    '/dashboard/:path*',
+
+    '/login', // Optional: include login to handle authenticated user redirects
   ],
 };
