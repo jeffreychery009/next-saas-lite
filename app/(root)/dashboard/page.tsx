@@ -24,7 +24,7 @@ const page = async () => {
           <BarChartComponent />
           <LineChartComponent />
         </div>
-        <div className="my-4 lg:px-6 lg:my-10 px-4 my-4 ">
+        <div className="my-4 lg:px-6 lg:my-10 px-4  ">
           <DataTable data={data} columns={columns} />
         </div>
       </div>
