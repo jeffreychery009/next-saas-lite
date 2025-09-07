@@ -102,14 +102,14 @@ type Payment = {
 
 export const paymentsData: Payment[] = [
   {
-    id: '728ed52f',
+    id: '1',
     amount: 100,
     status: 'pending',
     limit: 100,
     email: 'm@example.com',
   },
   {
-    id: '489e1d42',
+    id: '2',
     amount: 125,
 
     status: 'processing',
@@ -117,21 +117,21 @@ export const paymentsData: Payment[] = [
     email: 'example@gmail.com',
   },
   {
-    id: '489e1d42',
+    id: '3',
     amount: 125,
     status: 'processing',
     limit: 100,
     email: 'example@gmail.com',
   },
   {
-    id: '489e1d42',
+    id: '4',
     amount: 125,
     status: 'processing',
     limit: 100,
     email: 'example@gmail.com',
   },
   {
-    id: '489e1d42',
+    id: '5',
     amount: 125,
     status: 'processing',
     limit: 100,
