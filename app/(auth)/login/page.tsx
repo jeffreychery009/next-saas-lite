@@ -5,7 +5,6 @@ import { GalleryVerticalEnd } from 'lucide-react';
 import { LoginForm } from '@/components/auth/login-form';
 import Image from 'next/image';
 import Link from 'next/link';
-import HomeTheme from '@/components/dark-light/home-theme';
 
 export default function LoginPage() {
   return (

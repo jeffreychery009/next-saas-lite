@@ -1,8 +1,6 @@
 'use client';
 
-import FeaturesCard from '@/components/cards/features-card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, GalleryVerticalEnd } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import HomeTheme from '@/components/dark-light/home-theme';
