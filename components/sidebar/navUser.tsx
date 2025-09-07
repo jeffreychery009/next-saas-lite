@@ -18,6 +18,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { supabase } from '@/lib/supabaseBrowser';
+import { useRouter } from 'next/navigation';
 
 export function NavUser({
   user,
@@ -29,6 +31,12 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
+  const router = useRouter();
+
+  const signOut = () => {
+    supabase.auth.signOut();
+    router.push('/login');
+  };
 
   return (
     <SidebarMenu>
@@ -71,8 +79,8 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
+                <Sparkles className="text-purple-500" />
+                <span className="text-purple-500">Upgrade to Pro</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -91,9 +99,9 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut />
-              Log out
+            <DropdownMenuItem onClick={() => signOut()}>
+              <LogOut className="text-red-500" />
+              <span className="text-red-500">Log out</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
