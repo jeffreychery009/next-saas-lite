@@ -21,7 +21,7 @@ const Features = ({
   ctaText,
 }: FeaturesCardProps) => {
   return (
-    <Card className="h-full shadow-md dark:bg-[#0A0A0A]">
+    <Card className="h-full shadow-md dark:bg-[#0A0A0A] w-[350px]">
       <CardHeader className="pb-3 sm:pb-6">
         <div className="flex items-center gap-2 sm:gap-3 mb-2">
           <div className="p-1.5 sm:p-2 rounded-lg bg-primary/10 text-primary">{icon}</div>
