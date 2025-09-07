@@ -17,7 +17,11 @@ import { usePathname } from 'next/navigation';
 
 export function Search() {
   const [open, setOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
   const pathname = usePathname();
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'j' && (e.metaKey || e.ctrlKey)) {
@@ -29,6 +33,8 @@ export function Search() {
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
   }, []);
+
+  if (!mounted) return null;
 
   return (
     <>
