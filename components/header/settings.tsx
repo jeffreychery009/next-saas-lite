@@ -14,8 +14,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SettingsIcon } from 'lucide-react';
+import * as React from 'react';
 
 export function Settings() {
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
