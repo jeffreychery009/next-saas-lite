@@ -4,7 +4,7 @@ import FeaturesCard from './features-card';
 const FeatureSection = () => {
   return (
     <div className="flex justify-center">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-10 max-w-8xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6  sm:mt-10 max-w-8xl">
         <FeaturesCard
           icon={<CheckCircle className="h-4 w-4 text-black dark:text-white mt-0.5 flex-shrink-0" />}
           title="Secure Authentication"
