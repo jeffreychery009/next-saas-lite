@@ -57,7 +57,7 @@ export function PricingSection() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 text-balance">Simple, Transparent Pricing</h2>
-          <p className="text-muted-foreground text-lg text-pretty">
+          <p className="text-muted-foreground text-sm sm:text-lg text-pretty">
             Choose the perfect plan for your needs. No hidden fees, cancel anytime.
           </p>
         </div>
