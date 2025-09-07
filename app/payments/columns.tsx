@@ -2,10 +2,12 @@
 
 import { ColumnDef, flexRender, Row } from '@tanstack/react-table';
 import { Checkbox } from '@/components/ui/checkbox';
-import { GripVertical, MoreHorizontal } from 'lucide-react';
-import { ArrowUpDown } from 'lucide-react';
+import { GripVertical, MoreHorizontal, Loader } from 'lucide-react';
+import { ArrowUpDown, CircleCheck } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -95,7 +97,7 @@ export const columns: ColumnDef<Payment>[] = [
     ),
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'amount',
 
     header: () => <div className="">Amount</div>,
     cell: ({ row }) => {
@@ -107,6 +109,21 @@ export const columns: ColumnDef<Payment>[] = [
 
       return <div className=" font-medium">{formatted}</div>;
     },
+  },
+
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => (
+      <Badge variant="outline" className="text-muted-foreground px-1.5">
+        {row.original.status === 'success' ? (
+          <CircleCheck className="fill-green-500 dark:fill-green-400" />
+        ) : (
+          <Loader />
+        )}
+        {row.original.status}
+      </Badge>
+    ),
   },
   {
     accessorKey: 'email',
@@ -122,10 +139,7 @@ export const columns: ColumnDef<Payment>[] = [
       );
     },
   },
-  {
-    accessorKey: 'amount',
-    header: 'Amount',
-  },
+
   {
     accessorKey: 'limit',
     header: 'Limit',
