@@ -16,6 +16,7 @@ import React from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 import {
   Table,
@@ -25,7 +26,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { PlusIcon } from 'lucide-react';
 import {
   closestCenter,
   DndContext,
@@ -46,11 +46,22 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { createEntry, type EntryStatus } from '@/lib/entries';
+import { toast } from 'sonner';
 
 interface DataTableProps<TData extends { id: string }, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -87,6 +98,11 @@ export function DataTable<TData extends { id: string }, TValue>({
   data: initialData,
 }: DataTableProps<TData, TValue>) {
   const [data, setData] = React.useState(() => initialData);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [amount, setAmount] = React.useState<string>('');
+  const [status, setStatus] = React.useState<EntryStatus | undefined>(undefined);
+  const [limitAmount, setLimitAmount] = React.useState<string>('');
+  const [email, setEmail] = React.useState<string>('');
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const sortableId = React.useId();
@@ -126,6 +142,32 @@ export function DataTable<TData extends { id: string }, TValue>({
     }
   }
 
+  async function handleSaveNewEntry() {
+    try {
+      if (!amount || !status || !limitAmount || !email) {
+        toast.error('Please fill in all fields');
+        return;
+      }
+      const created = await createEntry({
+        amount: Number(amount),
+        status,
+        limit_amount: Number(limitAmount),
+        email,
+      });
+
+      setData((prev) => [created as unknown as TData, ...prev]);
+      setDialogOpen(false);
+      setAmount('');
+      setStatus(undefined);
+      setLimitAmount('');
+      setEmail('');
+      toast.success('Entry created');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to create entry';
+      toast.error(message);
+    }
+  }
+
   return (
     <div>
       <div className="flex justify-between items-center py-4 ">
@@ -139,18 +181,91 @@ export function DataTable<TData extends { id: string }, TValue>({
           />
         </div>
         <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                <PlusIcon className="w-4 h-4" />
-                <span className="hidden sm:inline">Add New Section</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Email</DropdownMenuItem>
-              <DropdownMenuItem>Message</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
+              <Button>Add New Section</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Add New Section</DialogTitle>
+                <DialogDescription>Fill out the fields below to add a new entry.</DialogDescription>
+              </DialogHeader>
+
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="amount" className="text-right">
+                    Amount
+                  </Label>
+                  <Input
+                    id="amount"
+                    type="number"
+                    placeholder="0.00"
+                    className="col-span-3"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
+                </div>
+
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="status" className="text-right">
+                    Status
+                  </Label>
+                  <div className="col-span-3">
+                    <Select value={status} onValueChange={(v) => setStatus(v as EntryStatus)}>
+                      <SelectTrigger id="status">
+                        <SelectValue placeholder="Select status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="pending">Pending</SelectItem>
+                        <SelectItem value="processing">Processing</SelectItem>
+                        <SelectItem value="success">Success</SelectItem>
+                        <SelectItem value="failed">Failed</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="limit" className="text-right">
+                    Limit
+                  </Label>
+                  <Select value={limitAmount} onValueChange={setLimitAmount}>
+                    <SelectTrigger id="limit">
+                      <SelectValue placeholder="Select limit" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="50">50</SelectItem>
+                      <SelectItem value="100">100</SelectItem>
+                      <SelectItem value="200">200</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="email" className="text-right">
+                    Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    className="col-span-3"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" type="button" onClick={() => setDialogOpen(false)}>
+                  Cancel
+                </Button>
+                <Button type="button" onClick={handleSaveNewEntry}>
+                  Save
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
       <div className="rounded-md border">
