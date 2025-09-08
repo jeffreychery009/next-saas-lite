@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useSortable } from '@dnd-kit/sortable';
+import { deleteEntry, updateEntry } from '@/lib/entries';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -25,6 +26,8 @@ export type Payment = {
   amount: number;
   status: 'pending' | 'processing' | 'success' | 'failed';
   email: string;
+  limit: number; // For mock data
+  limit_amount?: number; // For database data
 };
 
 function DragHandle({ id }: { id: string }) {
@@ -117,6 +120,11 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'limit',
     header: 'Limit',
+    cell: ({ row }) => {
+      // Handle both 'limit' (mock data) and 'limit_amount' (database)
+      const limit = row.getValue('limit') || row.original.limit_amount || 0;
+      return <div className="font-medium">{limit}</div>;
+    },
   },
   {
     id: 'actions',
@@ -137,8 +145,15 @@ export const columns: ColumnDef<Payment>[] = [
               Copy payment ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => updateEntry(payment.id, payment)}>
+              Update
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => deleteEntry(payment.id)}
+              className="text-red-600 focus:text-red-600"
+            >
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
