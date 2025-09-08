@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useSortable } from '@dnd-kit/sortable';
-import { deleteEntry, updateEntry } from '@/lib/entries';
+import { updateEntry } from '@/lib/entries';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -149,7 +149,7 @@ export const columns: ColumnDef<Payment>[] = [
               Update
             </DropdownMenuItem>
             <DropdownMenuItem
-              onClick={() => deleteEntry(payment.id)}
+              onClick={() => console.log('Delete')}
               className="text-red-600 focus:text-red-600"
             >
               Delete
