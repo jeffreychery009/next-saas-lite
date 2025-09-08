@@ -1,3 +1,19 @@
+// import { NextResponse } from 'next/server';
+// import type { NextRequest } from 'next/server';
+
+// // DEVELOPMENT MIDDLEWARE - NO AUTHENTICATION CHECKS
+// // This allows free access to all routes during development
+// export async function middleware(req: NextRequest) {
+//   // Simply pass through all requests without any authentication checks
+//   return NextResponse.next();
+// }
+
+// export const config = {
+//   matcher: ['/dashboard/:path*', '/login'],
+// };
+
+// PRODUCTION MIDDLEWARE - UNCOMMENT WHEN READY FOR PRODUCTION
+
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
@@ -71,11 +87,3 @@ export async function middleware(req: NextRequest) {
     return res;
   }
 }
-
-export const config = {
-  matcher: [
-    '/dashboard/:path*',
-
-    '/login', // Optional: include login to handle authenticated user redirects
-  ],
-};
