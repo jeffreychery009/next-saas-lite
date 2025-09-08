@@ -6,20 +6,48 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { handleGithubLogin } from '@/lib/auth/github.login';
 import { handleGoogleLogin } from '@/lib/auth/google.login';
+import Link from 'next/link';
+import * as React from 'react';
+import { signInWithEmail } from '@/lib/auth/credentials';
+import { toast } from 'sonner';
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'form'>) {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      await signInWithEmail(email, password);
+      toast.success('Logged in');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Login failed';
+      toast.error(message);
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
-    <form className={cn('flex flex-col gap-4 sm:gap-6', className)} {...props}>
+    <form className={cn('flex flex-col gap-4 sm:gap-6', className)} onSubmit={onSubmit} {...props}>
       <div className="flex flex-col items-center justify-center gap-2 text-center mb-4">
         <h1 className="text-xl sm:text-2xl font-bold">Login to your account</h1>
         <p className="text-muted-foreground text-sm text-balance items-center">
-          Enter your email below to login to your account
+          Enter the details below to login to your account
         </p>
       </div>
       <div className="grid gap-4 sm:gap-6">
         <div className="grid gap-2 sm:gap-3">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input
+            id="email"
+            type="email"
+            placeholder="m@example.com"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <div className="grid gap-2 sm:gap-3">
           <div className="flex items-center">
@@ -28,10 +56,16 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'form'>)
               Forgot your password?
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <Input
+            id="password"
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
-        <Button type="submit" className="w-full">
-          Login
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">
@@ -88,9 +122,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'form'>)
       </div>
       <div className="text-center text-xs sm:text-sm">
         Don&apos;t have an account?{' '}
-        <a href="#" className="underline underline-offset-4">
+        <Link href="/signup" className="underline underline-offset-4">
           Sign up
-        </a>
+        </Link>
       </div>
     </form>
   );
