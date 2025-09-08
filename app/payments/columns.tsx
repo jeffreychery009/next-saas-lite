@@ -122,7 +122,8 @@ export const columns: ColumnDef<Payment>[] = [
     header: 'Limit',
     cell: ({ row }) => {
       // Handle both 'limit' (mock data) and 'limit_amount' (database)
-      const limit = row.getValue('limit') || row.original.limit_amount || 0;
+      const raw = row.getValue('limit') as number | string | null | undefined;
+      const limit = raw != null ? Number(raw) : Number(row.original.limit_amount ?? 0);
       return <div className="font-medium">{limit}</div>;
     },
   },
