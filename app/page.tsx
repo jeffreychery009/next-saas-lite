@@ -8,6 +8,7 @@ import MenuBar from '@/components/menu/menu-bar';
 import { PricingSection } from '@/components/pricing/pricing-section';
 import FeatureSection from '@/components/cards/feature-section';
 import Footer from '@/components/footer';
+import Link from 'next/link';
 
 const Page = () => {
   return (
@@ -24,7 +25,9 @@ const Page = () => {
             <HomeTheme />
             {/* Ghost button */}
             <Button variant="ghost">Get Started</Button>
-            <Button>Login</Button>
+            <Link href="/login">
+              <Button>Login</Button>
+            </Link>
           </div>
         </div>
         <span className="sm:text-sm text-xs text-muted-foreground">v1.0.0</span>
